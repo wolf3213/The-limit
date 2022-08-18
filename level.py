@@ -1,5 +1,8 @@
 import pygame
 from tiles import Tile
+from tiles import Platform_
+from tiles import Wind_
+from tiles import Windleft_
 from settings import *
 from player import Player
 class Level:
@@ -28,13 +31,13 @@ class Level:
                     player_sprite = Player((x, y))
                     self.player.add(player_sprite)
                 if cell == 'W':
-                    wind_up = Tile((x, y), tile_size,'white')
+                    wind_up = Wind_((x, y))
                     self.winds_up.add(wind_up)
                 if cell == 'A':
-                    wind_left = Tile((x, y), tile_size,'white')
+                    wind_left = Windleft_((x, y))
                     self.winds_left.add(wind_left)
                 if cell == 'G':
-                    platform = Tile((x, y), tile_size,'green')
+                    platform = Platform_((x, y+88))
                     self.platforms.add(platform)
     def winds_collisions(self):
         player = self.player.sprite
@@ -44,18 +47,15 @@ class Level:
             player.on_ceiling = False
         for sprite in self.winds_up.sprites():
             if sprite.rect.colliderect(player.rect):
-                    player.direction.y = -1.2
+                    player.direction.y = -1.3 #ponieważ potrzebujesz zapasu 4 pixeli na doskoczenie do platformy
+                    #player.gravity=0
                     #print(player.direction.y)
+            #else:
+                #player.gravity=0.9
         for sprite in self.winds_left.sprites():
             if sprite.rect.colliderect(player.rect):
                     player.direction.x = -1
                     player.direction.y = -0.3
-    def platforms_collisions(self):
-        player = self.player.sprite
-        for sprite in self.platforms.sprites():
-            if (sprite.rect.colliderect(player.rect) and player.rect.bottom == sprite.rect.bottom):
-                    player.on_ground = True
-                    player.direction.y = 0
 
     def horizontal_movement_collision(self):
         player = self.player.sprite
@@ -74,7 +74,9 @@ class Level:
 
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
-                print(player.direction.x)
+                print(player.direction.y)
+                #if sprite.rect.collide_mask(player.rect):
+                    #pass
                 if player.direction.y > 0:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
@@ -87,6 +89,14 @@ class Level:
                     print("collision with celling")
                 elif player.direction.y == 0:
                     break
+    def platforms_collisions(self):
+        player = self.player.sprite
+        for sprite in self.platforms.sprites():
+            if (sprite.rect.colliderect(player.rect)):
+                if  player.direction.y > 0:
+                    player.rect.bottom = sprite.rect.top
+                    player.direction.y = 0
+                    player.on_ground = True
 
 
 
