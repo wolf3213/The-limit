@@ -10,4 +10,4 @@ add losing screen
 add camera following player in up
 
 KNOWN ISSUES:
--there's colision bug between if player has big speed from wind
+-there's colision bug between if player has big speed from wind fixed

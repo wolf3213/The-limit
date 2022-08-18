@@ -8,11 +8,11 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load('graphics/howl.png').convert_alpha()
         #self.image.fill('red')
-        self.rect = self.image.get_rect(topleft=pos)
+        self.rect = self.image.get_rect(center=pos)
         self.direction = pygame.math.Vector2(0, 0)
         self.speed=3
         self.gravity=0.98
-        self.jump_speed=-15
+        self.jump_speed=-14.5
 
         # player status
         self.status = 'idle'
@@ -40,6 +40,7 @@ class Player(pygame.sprite.Sprite):
     def apply_gravity(self):
         self.direction.y += self.gravity
         self.rect.y += self.direction.y
+
 
     def jump(self):
         self.direction.y = self.jump_speed

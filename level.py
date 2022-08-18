@@ -64,16 +64,9 @@ class Level:
             player.on_ceiling = False
         for sprite in self.winds_up.sprites():
             if sprite.rect.colliderect(player.rect):
-                if player.direction.y > 0:
-                    player.direction.y = -3
-                elif player.direction.y < 0:
                     player.direction.y = -3
         for sprite in self.winds_left.sprites():
             if sprite.rect.colliderect(player.rect):
-                if player.direction.y > 0:
-                    player.direction.x = -8
-                    player.direction.y = -0.9
-                elif player.direction.y < 0:
                     player.direction.x = -8
                     player.direction.y = -0.9
 

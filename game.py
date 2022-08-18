@@ -44,10 +44,11 @@ def main(death_count,kill_player):
 
         screen.blit(sky_surface,(0,0))
         #screen.blit(ground_surface, (0, 1075))
+        level.run()
         screen.blit(text_name,(940,50))
         #screen.blit(player_surf,player_rect)
 
-        level.run()
+
         kill_player=level.death(kill_player=0)
         if kill_player==1:
             death_count +=1
