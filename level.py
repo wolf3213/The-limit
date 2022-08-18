@@ -102,7 +102,7 @@ class Level:
     #def scroll_y(self):
         #player = self.player.sprite
         #player_x = player.rect.centerx
-        direction_x = player.direction.x
+        #direction_x = player.direction.x
 
         #if player_x < screen_height / 4 and direction_y < 0:
             ##player.speed = 0
@@ -112,8 +112,14 @@ class Level:
         #else:
             #self.world_shift = 0
             #player.speed = 8
-
-
+    def death(self,kill_player):
+        player = self.player.sprite
+        player_y = player.rect.centery
+        #print(player.rect.y)
+        if player_y>1100:
+            kill_player +=1
+            print(kill_player)
+            return kill_player
 
 
     def run(self):
@@ -130,3 +136,4 @@ class Level:
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.player.draw(self.display_surface)
+

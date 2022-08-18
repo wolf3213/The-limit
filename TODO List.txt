@@ -1,0 +1,13 @@
+ADDED:
+add option to restart game DONE
+add death count DONE
+added death condition if fall DONE
+
+
+add animations
+add ball as player
+add losing screen
+add camera following player in up
+
+KNOWN ISSUES:
+-there's colision bug between if player has big speed from wind

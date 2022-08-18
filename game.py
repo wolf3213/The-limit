@@ -3,9 +3,10 @@ from settings import *
 from tiles import Tile
 from level import Level
 from sys import exit
+from player import Player
 #init
 
-def main(death_count):
+def main(death_count,kill_player):
     pygame.init()
     screen=pygame.display.set_mode((1920,1080))
     clock=pygame.time.Clock()
@@ -39,7 +40,7 @@ def main(death_count):
                         running = False
                     if event.key == pygame.K_r:
                             death_count+=1
-                            main(death_count)
+                            main(death_count,0)
 
         screen.blit(sky_surface,(0,0))
         #screen.blit(ground_surface, (0, 1075))
@@ -47,9 +48,13 @@ def main(death_count):
         #screen.blit(player_surf,player_rect)
 
         level.run()
+        kill_player=level.death(kill_player=0)
+        if kill_player==1:
+            death_count +=1
+            main(death_count,kill_player=0)
         pygame.display.update()
 
         clock.tick(60)
 
 if __name__ == "__main__":
-    main(0)
+    main(death_count=0,kill_player=0)
