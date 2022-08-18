@@ -45,6 +45,7 @@ class Level:
         for sprite in self.winds_up.sprites():
             if sprite.rect.colliderect(player.rect):
                     player.direction.y = -1.2
+                    #print(player.direction.y)
         for sprite in self.winds_left.sprites():
             if sprite.rect.colliderect(player.rect):
                     player.direction.x = -1
@@ -73,14 +74,19 @@ class Level:
 
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
+                print(player.direction.x)
                 if player.direction.y > 0:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
                     player.on_ground = True
+                    print("collision with ground")
                 elif player.direction.y < 0:
                     player.rect.top = sprite.rect.bottom
                     player.direction.y = 0
                     player.on_ceiling = True
+                    print("collision with celling")
+                elif player.direction.y == 0:
+                    break
 
 
 
