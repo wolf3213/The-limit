@@ -14,6 +14,7 @@ class Level:
         self.tiles = pygame.sprite.Group()
         self.winds_up= pygame.sprite.Group()
         self.winds_left = pygame.sprite.Group()
+        self.platforms = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
         for row_index, row in enumerate(layout):
             for col_index, cell in enumerate(row):
@@ -32,6 +33,28 @@ class Level:
                 if cell == 'A':
                     wind_left = Tile((x, y), tile_size,'white')
                     self.winds_left.add(wind_left)
+                if cell == 'G':
+                    platform = Tile((x, y), tile_size,'green')
+                    self.platforms.add(platform)
+    def winds_collisions(self):
+        player = self.player.sprite
+        if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
+            player.on_ground = False
+        if player.on_ceiling and player.direction.y > 0.1:
+            player.on_ceiling = False
+        for sprite in self.winds_up.sprites():
+            if sprite.rect.colliderect(player.rect):
+                    player.direction.y = -1.2
+        for sprite in self.winds_left.sprites():
+            if sprite.rect.colliderect(player.rect):
+                    player.direction.x = -1
+                    player.direction.y = -0.3
+    def platforms_collisions(self):
+        player = self.player.sprite
+        for sprite in self.platforms.sprites():
+            if (sprite.rect.colliderect(player.rect) and player.rect.bottom == sprite.rect.bottom):
+                    player.on_ground = True
+                    player.direction.y = 0
 
     def horizontal_movement_collision(self):
         player = self.player.sprite
@@ -47,6 +70,7 @@ class Level:
         player = self.player.sprite
         player.apply_gravity()
 
+
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
                 if player.direction.y > 0:
@@ -58,17 +82,8 @@ class Level:
                     player.direction.y = 0
                     player.on_ceiling = True
 
-        if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
-            player.on_ground = False
-        if player.on_ceiling and player.direction.y > 0.1:
-            player.on_ceiling = False
-        for sprite in self.winds_up.sprites():
-            if sprite.rect.colliderect(player.rect):
-                    player.direction.y = -3
-        for sprite in self.winds_left.sprites():
-            if sprite.rect.colliderect(player.rect):
-                    player.direction.x = -8
-                    player.direction.y = -0.9
+
+
 
     def get_player_on_ground(self):
         if self.player.sprite.on_ground:
@@ -116,17 +131,23 @@ class Level:
 
 
     def run(self):
+
+        
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
         self.winds_up.update(self.world_shift)
         self.winds_up.draw(self.display_surface)
         self.winds_left.update(self.world_shift)
         self.winds_left.draw(self.display_surface)
+        self.platforms.update(self.world_shift)
+        self.platforms.draw(self.display_surface)
 
         self.scroll_x()
         self.player.update()
         self.get_player_on_ground()
+        self.winds_collisions()
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
+        self.platforms_collisions()
         self.player.draw(self.display_surface)
 

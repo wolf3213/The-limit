@@ -25,7 +25,7 @@ def main(death_count,kill_player):
 
     #fonts
     def_font=pygame.font.Font(None,50)#default font
-    text_name=def_font.render("Deatcount "+str(death_count),True,"red")
+    text_name=def_font.render("Deathcount "+str(death_count),True,"red")
     running=True
     while running:
 

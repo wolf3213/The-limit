@@ -10,8 +10,8 @@ class Player(pygame.sprite.Sprite):
         #self.image.fill('red')
         self.rect = self.image.get_rect(center=pos)
         self.direction = pygame.math.Vector2(0, 0)
-        self.speed=3
-        self.gravity=0.98
+        self.speed=1
+        self.gravity=0.9
         self.jump_speed=-14.5
 
         # player status
