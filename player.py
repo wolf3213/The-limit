@@ -6,10 +6,13 @@ from settings import *
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
-        self.image = pygame.image.load('graphics/howl.png').convert_alpha()
+        #self.image = pygame.image.load('graphics/cat_R.png').convert_alpha()
         #self.image.fill('red')
-        self.rect = self.image.get_rect(center=pos)
+
         self.direction = pygame.math.Vector2(0, 0)
+        self.image = pygame.image.load('graphics/cat_R.png').convert_alpha()
+        self.animate_player()
+        self.rect = self.image.get_rect(center=pos)
         self.speed=1
         self.gravity=0.9
         self.jump_speed=-14.5
@@ -22,6 +25,11 @@ class Player(pygame.sprite.Sprite):
         self.on_left = False
         self.on_right = False
 
+    def animate_player(self):
+        if self.direction.x<0:
+            self.image = pygame.image.load('graphics/cat_L.png').convert_alpha()
+        elif self.direction.x>0:
+            self.image = pygame.image.load('graphics/cat_R.png').convert_alpha()
     def get_input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
@@ -47,4 +55,5 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.get_input()
+        self.animate_player()
 
