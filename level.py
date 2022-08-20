@@ -11,7 +11,7 @@ class Level:
         self.setup_level(level_data)
 
         self.world_shift=0
-
+        self.collison_tollorence=10
 
     def setup_level(self,layout):
         self.tiles = pygame.sprite.Group()
@@ -65,7 +65,11 @@ class Level:
             if sprite.rect.colliderect(player.rect):
                 if player.direction.x < 0:
                     player.rect.left = sprite.rect.right
+                elif abs(player.rect.left - sprite.rect.right)<self.collison_tollorence:
+                    player.rect.left = sprite.rect.right
                 elif player.direction.x > 0:
+                    player.rect.right = sprite.rect.left
+                elif abs(player.rect.right - sprite.rect.left)<self.collison_tollorence:
                     player.rect.right = sprite.rect.left
     def vertical_movement_collision(self):
         player = self.player.sprite
@@ -74,21 +78,28 @@ class Level:
 
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
-                print(player.direction.y)
                 #if sprite.rect.collide_mask(player.rect):
                     #pass
                 if player.direction.y > 0:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
                     player.on_ground = True
-                    print("collision with ground")
+                    #print("collision with ground")
+                elif abs(player.rect.bottom - sprite.rect.top)<self.collison_tollorence:
+                    player.rect.bottom = sprite.rect.top
+                    player.direction.y = 0
+                    player.on_ground = True
                 elif player.direction.y < 0:
                     player.rect.top = sprite.rect.bottom
                     player.direction.y = 0
                     player.on_ceiling = True
-                    print("collision with celling")
-                elif player.direction.y == 0:
-                    break
+                elif abs(player.rect.top - sprite.rect.bottom)<self.collison_tollorence:
+                    player.rect.top = sprite.rect.bottom
+                    player.direction.y = 0
+                    player.on_ceiling = True
+                    #print("collision with celling")
+                #elif player.direction.y == 0:
+                    #break
     def platforms_collisions(self):
         player = self.player.sprite
         for sprite in self.platforms.sprites():
@@ -159,9 +170,16 @@ class Level:
         self.platforms.draw(self.display_surface)
 
         self.scroll_x()
+
+        player = self.player.sprite
+        #if (player.direction.y>9 or player.direction.y<-9 or player.direction.x>9 or player.direction.x<-9):
+            #print(player.direction.x)
+            #print(player.direction.y)
         self.player.update()
         self.get_player_on_ground()
         self.winds_collisions()
+
+
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.platforms_collisions()
