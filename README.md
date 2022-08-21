@@ -9,10 +9,9 @@ Converting to tiles editor. (Conversion done now to add player) <br/>
 ADDED LIST : <br/>
 add option to restart game DONE +<br/>
 add death count DONE +<br/><br/>
-added death condition if fall DONE +<br/>
+add death condition if fall DONE +<br/>
 add platforms DONE +<br/>
 add better collisions DONE+ (loot at SOLVED KNOWN ISSUES LIST)<br/>
-<br/>
 <br/>
 ----------<br/>
 TO DO LIST<br/>
@@ -21,7 +20,7 @@ add camera following player in up<br/>
 add animations<br/>
 add better hitbox to player<br/>
 add losing screen<br/>
-
+<br/>
 ---------<br/>
 IDEA LIST<br/>
 nd based on 6 (6 circles going "up",pixel by pixel)<br/>
