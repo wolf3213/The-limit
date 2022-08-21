@@ -16,10 +16,12 @@ add better collisions DONE+ (loot at SOLVED KNOWN ISSUES LIST)<br/>
 <br/>
 ----------<br/>
 TO DO LIST<br/>
+add menu screen <br/>
+add camera following player in up<br/>
 add animations<br/>
 add better hitbox to player<br/>
 add losing screen<br/>
-add camera following player in up<br/>
+
 ---------<br/>
 IDEA LIST<br/>
 nd based on 6 (6 circles going "up",pixel by pixel)<br/>
