@@ -8,7 +8,7 @@ Converting to tiles editor. (Conversion done now to add player) <br/>
 <br/>
 ADDED LIST : <br/>
 add option to restart game DONE +<br/>
-add death count DONE +<br/><br/>
+add death count DONE +<br/>
 add death condition if fall DONE +<br/>
 add platforms DONE +<br/>
 add better collisions DONE+ (loot at SOLVED KNOWN ISSUES LIST)<br/>
