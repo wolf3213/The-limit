@@ -1,35 +1,35 @@
 # The-limit
 Simple platform game
 ----------
-IN PROGRESS LIST:
-Converting to tiles editor. (Conversion done now to add player) 
+IN PROGRESS LIST:<br/>
+Converting to tiles editor. (Conversion done now to add player) <br/>
+<br/>
+--------- <br/>
+<br/>
+ADDED LIST : <br/>
+add option to restart game DONE +<br/>
+add death count DONE +<br/><br/>
+added death condition if fall DONE +<br/>
+add platforms DONE +<br/>
+add better collisions DONE+ (loot at SOLVED KNOWN ISSUES LIST)<br/>
+<br/>
+<br/>
+----------<br/>
+TO DO LIST<br/>
+add animations<br/>
+add better hitbox to player<br/>
+add losing screen<br/>
+add camera following player in up<br/>
+---------<br/>
+IDEA LIST<br/>
+nd based on 6 (6 circles going "up",pixel by pixel)<br/>
+-----------<br/>
+UNSOLVED KNOWN BUGs LIST:<br/>
 
----------
 
-ADDED LIST :
-add option to restart game DONE +
-add death count DONE +
-added death condition if fall DONE +
-add platforms DONE +
-add better collisions DONE+ (loot at SOLVED KNOWN ISSUES LIST)
-
-
-----------
-TO DO LSIT 
-add animations
-add better hitbox to player
-add losing screen
-add camera following player in up
----------
-IDEA LIST
-nd based on 6 (6 circles going "up",pixel by pixel)
 -----------
-UNSOLVED KNOWN BUGs LIST:
+SOLVED KNOWN Bugs LIST:<br/>
+important:<br/>
+-there's colision bug between if player has big speed from wind to be checked if nope FIXED+<br/>
 
-
------------
-SOLVED KNOWN Bugs LIST:
-important:
--there's colision bug between if player has big speed from wind to be checked if nope FIXED+
-
--to fix bug if player holds two buttons right and left at same time. 
+-to fix bug if player holds two buttons right and left at same time. FIXED+ <br/>
