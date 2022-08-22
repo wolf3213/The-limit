@@ -10,9 +10,9 @@ level_map=[
 '                          XXXXXXX',
 '    X X                  XXXXXXXX',
 '   XX XX    XX G X G X XXXXXXXXXX',
-'XXXXX XXX XXXX W X W X XXXXXXXXXX',
+'XXXXX XXX XXXX   X W X XXXXXXXXXX',
 'XXXXX XXX XXXX   X   X XXXXXXXXXX',]
-tile_size=92
+tile_size=32
 screen_width=1920
 scren_height=1080
 # camera

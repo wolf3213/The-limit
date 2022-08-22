@@ -13,9 +13,9 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load('graphics/cat_R.png').convert_alpha()
         self.animate_player()
         self.rect = self.image.get_rect(center=pos)
-        self.speed=1
+        self.speed=3
         self.gravity=0.9
-        self.jump_speed=-14.5
+        self.jump_speed=-12
 
         # player status
         self.status = 'idle'
@@ -28,8 +28,10 @@ class Player(pygame.sprite.Sprite):
     def animate_player(self):
         if self.direction.x<0:
             self.image = pygame.image.load('graphics/cat_L.png').convert_alpha()
+            self.facing_right = True
         elif self.direction.x>0:
             self.image = pygame.image.load('graphics/cat_R.png').convert_alpha()
+            self.facing_right = False
     def get_input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
@@ -42,7 +44,9 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = -1
         else:
             self.direction.x = 0
-        if keys[pygame.K_SPACE] and self.on_ground:
+        if (keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]):
+                self.direction.x = 0
+        if (keys[pygame.K_SPACE] and self.on_ground):
             self.jump()
 
     def apply_gravity(self):
