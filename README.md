@@ -2,11 +2,12 @@
 Simple platform game
 ----------
 IN PROGRESS LIST:<br/>
-Converting to tiles editor. (Conversion done now to add player) <br/>
-<br/>
+
 --------- <br/>
 <br/>
 ADDED LIST : <br/>
+Converting to tiles editor.  <br/>
+
 add option to restart game DONE +<br/>
 add death count DONE +<br/>
 add death condition if fall DONE +<br/>
@@ -15,6 +16,7 @@ add better collisions DONE+ (loot at SOLVED KNOWN ISSUES LIST)<br/>
 <br/>
 ----------<br/>
 TO DO LIST<br/>
+add winds, platforms so on
 add menu screen <br/>
 add camera following player in up<br/>
 add animations<br/>
