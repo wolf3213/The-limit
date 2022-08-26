@@ -2,13 +2,13 @@
 Simple platform game
 ----------
 IN PROGRESS LIST:<br/>
-xbox controls <br/>
+
 
 --------- <br/>
 <br/>
 ADDED LIST : <br/>
 Converting to tiles editor.  <br/>
-
+xbox controls <br/>
 add option to restart game DONE +<br/>
 add death count DONE +<br/>
 add death condition if fall DONE +<br/>
