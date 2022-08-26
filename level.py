@@ -190,7 +190,7 @@ class Level:
             return kill_player
 
 
-    def run(self):
+    def run(self,joystick):
 
         
         self.tiles.update(self.world_shift)
@@ -207,7 +207,7 @@ class Level:
         #if (player.direction.y>9 or player.direction.y<-9 or player.direction.x>9 or player.direction.x<-9):
             #print(player.direction.x)
             #print(player.direction.y)
-        self.player.update()
+        self.player.update(joystick)
         self.get_player_on_ground()
         ##self.winds_collisions()
 

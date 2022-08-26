@@ -9,6 +9,14 @@ from game_data import level_0
 
 def main(death_count,kill_player):
     pygame.init()
+    joystick = None
+    if joystick:
+        print("joystick package is here")
+    if pygame.joystick.get_count() > 0:
+        joystick = pygame.joystick.Joystick(0)
+        joystick.init()
+        print("joystick initialized")
+
     screen=pygame.display.set_mode((1920,1080))
     clock=pygame.time.Clock()
     level=Level(level_0,screen)
@@ -45,7 +53,7 @@ def main(death_count,kill_player):
 
         screen.blit(sky_surface,(0,0))
         #screen.blit(ground_surface, (0, 1075))
-        level.run()
+        level.run(joystick)
         screen.blit(text_name,(940,50))
         #screen.blit(player_surf,player_rect)
 
