@@ -16,8 +16,10 @@ def main(death_count,kill_player):
         joystick = pygame.joystick.Joystick(0)
         joystick.init()
         print("joystick initialized")
-
-    screen=pygame.display.set_mode((1920,1080))
+    else:
+        joystick=False #look at get_input in player class
+        print('joystick not initaliazed')
+    screen=pygame.display.set_mode((1920,1080),pygame.FULLSCREEN)
     clock=pygame.time.Clock()
     level=Level(level_0,screen)
     #backround
@@ -47,6 +49,7 @@ def main(death_count,kill_player):
                         print("escape pressed")
                         pygame.quit()
                         running = False
+                        exit()
                     if event.key == pygame.K_r:
                             death_count+=1
                             main(death_count,0)

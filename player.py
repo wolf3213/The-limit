@@ -35,36 +35,54 @@ class Player(pygame.sprite.Sprite):
             self.image = pygame.image.load('graphics/cat_R.png').convert_alpha()
             self.facing_right = False
     def get_input(self,joystick):
-        #xbox
-        axis_x = joystick.get_axis(0)
-        axis_y = joystick.get_axis(1)
-        print(axis_x)
-        buttons = joystick.get_button(0)
-        keys = pygame.key.get_pressed()
-        if (buttons>0 and self.on_ground):
-            self.jump()
-        if axis_x > 0.4:
-            self.direction.x = 1
-            print("right")
-        elif axis_x < -0.4:
-            self.direction.x = -1
-            print("left")
-        ##############
-        # keyboard
-        elif keys[pygame.K_RIGHT]:
-            self.direction.x = 1
-        elif keys[pygame.K_LEFT]:
-            self.direction.x = -1
-        elif keys[pygame.K_d]:
-            self.direction.x = 1
-        elif keys[pygame.K_a]:
-            self.direction.x = -1
-        else:
-            self.direction.x = 0
-        if (keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]):
+        if joystick==False:#pad not found 
+            #keybaord only
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_RIGHT]:
+                self.direction.x = 1
+            elif keys[pygame.K_LEFT]:
+                self.direction.x = -1
+            elif keys[pygame.K_d]:
+                self.direction.x = 1
+            elif keys[pygame.K_a]:
+                self.direction.x = -1
+            else:
                 self.direction.x = 0
-        if (keys[pygame.K_SPACE] and self.on_ground):
-            self.jump()
+            if (keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]):
+                self.direction.x = 0
+            if (keys[pygame.K_SPACE] and self.on_ground):
+                self.jump()
+        else:
+            #xbox and keyboard
+            axis_x = joystick.get_axis(0)
+            axis_y = joystick.get_axis(1)
+            print(axis_x)
+            buttons = joystick.get_button(0)
+            keys = pygame.key.get_pressed()
+            if (buttons>0 and self.on_ground):
+                self.jump()
+            if axis_x > 0.4:
+                self.direction.x = 1
+                print("right")
+            elif axis_x < -0.4:
+                self.direction.x = -1
+                print("left")
+            ##############
+            # keyboard
+            elif keys[pygame.K_RIGHT]:
+                self.direction.x = 1
+            elif keys[pygame.K_LEFT]:
+                self.direction.x = -1
+            elif keys[pygame.K_d]:
+                self.direction.x = 1
+            elif keys[pygame.K_a]:
+                self.direction.x = -1
+            else:
+                self.direction.x = 0
+            if (keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]):
+                self.direction.x = 0
+            if (keys[pygame.K_SPACE] and self.on_ground):
+                self.jump()
 
     def apply_gravity(self):
         self.direction.y += self.gravity
