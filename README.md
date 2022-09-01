@@ -1,6 +1,6 @@
 # The-limit
 Simple platform game<br/>
-IMPORTANT CURRENT MOST IMPORTANT BRANCH IS ,,With TILES'' not main:<br/>
+IMPORTANT CURRENT MOST developt BRANCH IS ,,With TILES'' not main:<br/>
 ----------
 IN PROGRESS LIST:<br/>
 
