@@ -30,12 +30,14 @@ class Player(pygame.sprite.Sprite):
     def animate_player(self):
         if self.direction.x<0:
             self.image = pygame.image.load('graphics/cat_L.png').convert_alpha()
-            self.facing_right = True
+            self.facing_left = True
+            self.facing_right = False
         elif self.direction.x>0:
             self.image = pygame.image.load('graphics/cat_R.png').convert_alpha()
-            self.facing_right = False
+            self.facing_right = True
+            self.facing_left= True
     def get_input(self,joystick):
-        if joystick==False:#pad not found 
+        if pygame.joystick.get_count() == 0:#pad not found
             #keybaord only
             keys = pygame.key.get_pressed()
             if keys[pygame.K_RIGHT]:
@@ -54,12 +56,14 @@ class Player(pygame.sprite.Sprite):
                 self.jump()
         else:
             #xbox and keyboard
+            #axis
             axis_x = joystick.get_axis(0)
-            axis_y = joystick.get_axis(1)
+            #axis_y = joystick.get_axis(1)
             print(axis_x)
-            buttons = joystick.get_button(0)
+            #'A" button on xbox controller
+            button_jump = joystick.get_button(0)
             keys = pygame.key.get_pressed()
-            if (buttons>0 and self.on_ground):
+            if (button_jump>0 and self.on_ground):
                 self.jump()
             if axis_x > 0.4:
                 self.direction.x = 1
