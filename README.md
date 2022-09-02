@@ -18,6 +18,8 @@ add better collisions DONE+ (loot at SOLVED KNOWN ISSUES LIST)<br/>
 <br/>
 ----------<br/>
 TO DO LIST<br/>
+make less memory storage for while running loop <br/>
+
 add winds, platforms so on<br/>
 add menu screen <br/>
 add camera following player in up<br/>
