@@ -59,7 +59,7 @@ class Player(pygame.sprite.Sprite):
             #axis
             axis_x = joystick.get_axis(0)
             #axis_y = joystick.get_axis(1)
-            print(axis_x)
+            #print(axis_x)
             #'A" button on xbox controller
             button_jump = joystick.get_button(0)
             keys = pygame.key.get_pressed()
