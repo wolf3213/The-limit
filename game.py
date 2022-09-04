@@ -75,8 +75,8 @@ class Game():
                 game = Game()
                 game.run(death_count)
             pygame.display.update()
-            print(death_count)
-
+            # print(death_count)
+            # print(self.clock.get_fps())
             self.clock.tick(60)
 
 # def main(death_count,kill_player):
@@ -141,5 +141,6 @@ class Game():
 #         clock.tick(60)
 
 if __name__ == "__main__":
-    game = Game()
-    game.run(death_count=0)
+     game = Game()
+     game.run(death_count=0)
+    # main(death_count=0,kill_player=0)
