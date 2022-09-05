@@ -29,11 +29,11 @@ IDEA LIST<br/>
 nd based on 6 (6 circles going "up",pixel by pixel)<br/>
 -----------<br/>
 UNSOLVED KNOWN BUGs LIST:<br/>
-Collision goes crazy if camera is scrolling <br/>
+
 
 -----------
 SOLVED KNOWN Bugs LIST:<br/>
 important:<br/>
 -there's colision bug between if player has big speed from wind to be checked if nope FIXED+<br/>
-
+-Collision goes crazy if camera is scrolling <br/>
 -to fix bug if player holds two buttons right and left at same time. FIXED+ <br/>
