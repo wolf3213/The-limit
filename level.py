@@ -165,7 +165,6 @@ class Level:
             player.speed = 0
         else:
             self.world_shift = 0
-            player.speed = 8
 
     def death(self,kill_player):
         player = self.player.sprite
@@ -179,9 +178,9 @@ class Level:
 
     def run(self,joystick):
 
-        self.scroll_x()
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
+        self.scroll_x()
         #self.winds_up.update(self.world_shift)
         #self.winds_left.update(self.world_shift)
         #self.winds_left.draw(self.display_surface)
