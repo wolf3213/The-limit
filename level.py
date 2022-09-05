@@ -13,7 +13,7 @@ class Level:
         self.display_surface=surface
 
         self.world_shift=0
-        self.collison_tollorence=2
+        self.collison_tollorence=3
 
         tiles_layout = import_csv_layout(level_data['terrain'])
         self.tiles = self.create_tile_group(tiles_layout,'terrain')
@@ -93,14 +93,15 @@ class Level:
 
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
+                # if abs(player.rect.left - sprite.rect.right)<self.collison_tollorence:
+                #     player.rect.left = sprite.rect.right
+                # elif abs(player.rect.right - sprite.rect.left)<self.collison_tollorence:
+                #     player.rect.right = sprite.rect.left
                 if player.direction.x < 0:
-                    player.rect.left = sprite.rect.right
-                elif abs(player.rect.left - sprite.rect.right)<self.collison_tollorence:
                     player.rect.left = sprite.rect.right
                 elif player.direction.x > 0:
                     player.rect.right = sprite.rect.left
-                elif abs(player.rect.right - sprite.rect.left)<self.collison_tollorence:
-                    player.rect.right = sprite.rect.left
+
     def vertical_movement_collision(self):
         player = self.player.sprite
         player.apply_gravity()
@@ -111,8 +112,6 @@ class Level:
 
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
-                #if sprite.rect.collide_mask(player.rect):
-                    #pass
                 if player.direction.y > 0:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
@@ -166,20 +165,7 @@ class Level:
             player.speed = 0
         else:
             self.world_shift = 0
-            player.speed = 8
-    #def scroll_y(self):
-        #player = self.player.sprite
-        #player_x = player.rect.centerx
-        #direction_x = player.direction.x
 
-        #if player_x < screen_height / 4 and direction_y < 0:
-            ##player.speed = 0
-        #elif player_x > screen_height - (screen_height / 4) and direction_y > 0:
-            #self.world_shift = -8
-            #player.speed = 0
-        #else:
-            #self.world_shift = 0
-            #player.speed = 8
     def death(self,kill_player):
         player = self.player.sprite
         player_y = player.rect.centery
@@ -192,18 +178,18 @@ class Level:
 
     def run(self,joystick):
 
-        
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
+        self.scroll_x()
         #self.winds_up.update(self.world_shift)
         #self.winds_left.update(self.world_shift)
         #self.winds_left.draw(self.display_surface)
         #self.platforms.update(self.world_shift)
         #self.platforms.draw(self.display_surface)
 
-        self.scroll_x()
 
-        player = self.player.sprite
+
+        #player = self.player.sprite
         #if (player.direction.y>9 or player.direction.y<-9 or player.direction.x>9 or player.direction.x<-9):
             #print(player.direction.x)
             #print(player.direction.y)

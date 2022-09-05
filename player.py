@@ -13,7 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load('graphics/cat_R.png').convert_alpha()
         self.animate_player()
         self.rect = self.image.get_rect(center=pos)
-        self.speed=3
+        self.speed=8
         self.gravity=0.9
         self.jump_speed=-12
 
