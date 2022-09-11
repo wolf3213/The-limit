@@ -12,14 +12,22 @@ class Level:
     def __init__(self,level_data,surface):
         self.display_surface=surface
 
-        self.world_shift=0
+        #self.world_shift=0
         self.collison_tollorence=3
 
+        self.visible_sprites = CameraGroup()
+        self.active_sprites = pygame.sprite.Group()
+        self.collision_sprites = pygame.sprite.Group()
+
         tiles_layout = import_csv_layout(level_data['terrain'])
-        self.tiles = self.create_tile_group(tiles_layout,'terrain')
-        self.winds_up= pygame.sprite.Group()
-        self.winds_left = pygame.sprite.Group()
-        self.platforms = pygame.sprite.Group()
+        self.tiles = self.create_tile_group(tiles_layout,'terrain',[self.visible_sprites,self.collision_sprites])
+        winds_laylout = import_csv_layout(level_data['winds'])
+        self.winds = self.create_tile_group(winds_laylout, 'winds', [self.visible_sprites, self.collision_sprites])
+
+        # TO FIX
+        # self.winds_up= pygame.sprite.Group()
+        # self.winds_left = pygame.sprite.Group()
+        # self.platforms = pygame.sprite.Group()
         # player
         player_layout = import_csv_layout(level_data['player'])
         self.player = pygame.sprite.GroupSingle()
@@ -45,7 +53,7 @@ class Level:
                     #platform = Platform_((x, y+88))
                     #self.platforms.add(platform)
 
-    def create_tile_group(self, layout, type):
+    def create_tile_group(self, layout, type, groups):
         sprite_group = pygame.sprite.Group()
 
         for row_index, row in enumerate(layout):
@@ -57,8 +65,9 @@ class Level:
                     if type == 'terrain':
                         #terrain_tile_list = import_cut_graphics('graphics/stone.png')
                         #tile_surface = terrain_tile_list[int(val)]
-                        sprite = Tile( (x,y),tile_size, 'grey')
-
+                        sprite = Tile((x,y),tile_size, 'grey',groups)
+                    if type == 'winds':
+                        sprite = Tile((x, y), tile_size, 'white', groups)
                     sprite_group.add(sprite)
 
         return sprite_group
@@ -89,9 +98,11 @@ class Level:
 
     def horizontal_movement_collision(self):
         player = self.player.sprite
-        player.rect.x += player.direction.x * player.speed
+        # print('player speed is ')
+        # print(player.speed)
 
-        for sprite in self.tiles.sprites():
+
+        for sprite in self.collision_sprites.sprites():
             if sprite.rect.colliderect(player.rect):
                 # if abs(player.rect.left - sprite.rect.right)<self.collison_tollorence:
                 #     player.rect.left = sprite.rect.right
@@ -110,7 +121,7 @@ class Level:
         if player.on_ceiling and player.direction.y > 0.1:
             player.on_ceiling = False
 
-        for sprite in self.tiles.sprites():
+        for sprite in self.collision_sprites.sprites():
             if sprite.rect.colliderect(player.rect):
                 if player.direction.y > 0:
                     player.rect.bottom = sprite.rect.top
@@ -132,14 +143,16 @@ class Level:
                     #print("collision with celling")
                 #elif player.direction.y == 0:
                     #break
-    def platforms_collisions(self):
-        player = self.player.sprite
-        for sprite in self.platforms.sprites():
-            if (sprite.rect.colliderect(player.rect)):
-                if  player.direction.y > 0:
-                    player.rect.bottom = sprite.rect.top
-                    player.direction.y = 0
-                    player.on_ground = True
+
+    #TO FIX
+    # def platforms_collisions(self):
+    #     player = self.player.sprite
+    #     for sprite in self.platforms.sprites():
+    #         if (sprite.rect.colliderect(player.rect)):
+    #             if  player.direction.y > 0:
+    #                 player.rect.bottom = sprite.rect.top
+    #                 player.direction.y = 0
+    #                 player.on_ground = True
 
 
 
@@ -152,25 +165,13 @@ class Level:
 
 
 
-    def scroll_x(self):
-        player = self.player.sprite
-        player_x = player.rect.centerx
-        direction_x = player.direction.x
 
-        if player_x < screen_width / 4 and direction_x < 0:
-            self.world_shift = 8
-            player.speed = 0
-        elif player_x > screen_width - (screen_width / 4) and direction_x > 0:
-            self.world_shift = -8
-            player.speed = 0
-        else:
-            self.world_shift = 0
 
     def death(self,kill_player):
         player = self.player.sprite
         player_y = player.rect.centery
         #print(player.rect.y)
-        if player_y>1100:
+        if player_y>1081:
             kill_player +=1
             #print(kill_player)
             return kill_player
@@ -178,9 +179,9 @@ class Level:
 
     def run(self,joystick):
 
-        self.tiles.update(self.world_shift)
-        self.tiles.draw(self.display_surface)
-        self.scroll_x()
+        #self.scroll_x()
+        #self.tiles.update(self.world_shift)
+        self.visible_sprites.custom_draw(self.player.sprite)
         #self.winds_up.update(self.world_shift)
         #self.winds_left.update(self.world_shift)
         #self.winds_left.draw(self.display_surface)
@@ -203,3 +204,45 @@ class Level:
         #self.platforms_collisions()
         self.player.draw(self.display_surface)
 
+class CameraGroup(pygame.sprite.Group):
+	def __init__(self):
+		super().__init__()
+		self.display_surface = pygame.display.get_surface()
+		self.offset = pygame.math.Vector2(0,0)
+
+		# center camera setup
+		# self.half_w = self.display_surface.get_size()[0] // 2
+		# self.half_h = self.display_surface.get_size()[1] // 2
+
+		# camera
+		cam_left = CAMERA_BORDERS['left']
+		cam_top = CAMERA_BORDERS['top']
+		cam_width = self.display_surface.get_size()[0] - (cam_left + CAMERA_BORDERS['right'])
+		cam_height = self.display_surface.get_size()[1] - (cam_top + CAMERA_BORDERS['bottom'])
+
+		self.camera_rect = pygame.Rect(cam_left,cam_top,cam_width,cam_height)
+
+	def custom_draw(self,player):
+
+		# get the player offset
+		# self.offset.x = player.rect.centerx - self.half_w
+		# self.offset.y = player.rect.centery - self.half_h
+
+		# getting the camera position
+		if player.rect.left < self.camera_rect.left:
+			self.camera_rect.left = player.rect.left
+		if player.rect.right > self.camera_rect.right:
+			self.camera_rect.right = player.rect.right
+		if player.rect.top < self.camera_rect.top:
+			self.camera_rect.top = player.rect.top
+		if player.rect.bottom > self.camera_rect.bottom:
+			self.camera_rect.bottom = player.rect.bottom
+
+		# camera offset
+		self.offset = pygame.math.Vector2(
+			self.camera_rect.left - CAMERA_BORDERS['left'],
+			self.camera_rect.top - CAMERA_BORDERS['top'])
+
+		for sprite in self.sprites():
+			offset_pos = sprite.rect.topleft - self.offset
+			self.display_surface.blit(sprite.image,offset_pos)
