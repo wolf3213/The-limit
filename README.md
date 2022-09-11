@@ -32,7 +32,7 @@ IDEA LIST<br/>
 nd based on 6 (6 circles going "up",pixel by pixel)<br/>
 -----------<br/>
 UNSOLVED KNOWN BUGs LIST:<br/>
-
+COLLISIONS BUGS OUT WHEN USING NEW CAMERA<br/>
 
 -----------
 SOLVED KNOWN Bugs LIST:<br/>
