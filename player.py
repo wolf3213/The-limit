@@ -4,8 +4,8 @@ from settings import *
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos):
-        super().__init__()
+    def __init__(self, pos,groups):
+        super().__init__(groups)
         #self.image = pygame.image.load('graphics/cat_R.png').convert_alpha()
         #self.image.fill('red')
 
@@ -98,5 +98,6 @@ class Player(pygame.sprite.Sprite):
 
     def update(self,joystick):
         self.get_input(joystick)
+        self.rect.x += self.direction.x * self.speed
         self.animate_player()
 

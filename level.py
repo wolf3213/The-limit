@@ -30,28 +30,9 @@ class Level:
         # self.platforms = pygame.sprite.Group()
         # player
         player_layout = import_csv_layout(level_data['player'])
-        self.player = pygame.sprite.GroupSingle()
-        self.player_setup(player_layout)
-        #for row_index, row in enumerate(layout):
-            #for col_index, cell in enumerate(row):
-                #x = col_index * tile_size
-                #y = row_index * tile_size
+       #self.player = pygame.sprite.GroupSingle()
+        self.player_setup(player_layout,self.visible_sprites)
 
-                #if cell == 'X':
-                    #tile = Tile((x, y), tile_size,'grey')
-                    #self.tiles.add(tile)
-                #if cell == 'P':
-                    #player_sprite = Player((x, y))
-                    #self.player.add(player_sprite)
-               # if cell == 'W':
-                    #wind_up = Wind_((x, y))
-                    #self.winds_up.add(wind_up)
-                #if cell == 'A':
-                    #wind_left = Windleft_((x, y))
-                    #self.winds_left.add(wind_left)
-                #if cell == 'G':
-                    #platform = Platform_((x, y+88))
-                    #self.platforms.add(platform)
 
     def create_tile_group(self, layout, type, groups):
         sprite_group = pygame.sprite.Group()
@@ -72,35 +53,32 @@ class Level:
 
         return sprite_group
 
-    def player_setup(self, layout):
+    def player_setup(self, layout,groups):
         for row_index, row in enumerate(layout):
             for col_index, val in enumerate(row):
                 x = col_index * tile_size
                 y = row_index * tile_size
                 if val == '0':
-                    sprite = Player((x, y))
-                    self.player.add(sprite)
+                    self.player = Player((x, y),groups)
+                    #self.player.add(sprite)
 
 
-    def winds_collisions(self):
-        player = self.player.sprite
-        for sprite in self.winds_up.sprites():
-            if sprite.rect.colliderect(player.rect):
-                    player.direction.y = -1.3 #ponieważ potrzebujesz zapasu 4 pixeli na doskoczenie do platformy
-                    #player.gravity=0
-                    #print(player.direction.y)
-            #else:
-                #player.gravity=0.9
-        for sprite in self.winds_left.sprites():
-            if sprite.rect.colliderect(player.rect):
-                    player.direction.x = -1
-                    player.direction.y = -0.3
+    # def winds_collisions(self):
+    #     player = self.player.sprite
+    #     for sprite in self.winds_up.sprites():
+    #         if sprite.rect.colliderect(player.rect):
+    #                 player.direction.y = -1.3 #ponieważ potrzebujesz zapasu 4 pixeli na doskoczenie do platformy
+    #                 #player.gravity=0
+    #                 #print(player.direction.y)
+    #         #else:
+    #             #player.gravity=0.9
+    #     for sprite in self.winds_left.sprites():
+    #         if sprite.rect.colliderect(player.rect):
+    #                 player.direction.x = -1
+    #                 player.direction.y = -0.3
 
     def horizontal_movement_collision(self):
-        player = self.player.sprite
-        # print('player speed is ')
-        # print(player.speed)
-
+        player = self.player
 
         for sprite in self.collision_sprites.sprites():
             if sprite.rect.colliderect(player.rect):
@@ -114,7 +92,7 @@ class Level:
                     player.rect.right = sprite.rect.left
 
     def vertical_movement_collision(self):
-        player = self.player.sprite
+        player = self.player
         player.apply_gravity()
         if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
             player.on_ground = False
@@ -158,7 +136,7 @@ class Level:
 
 
     def get_player_on_ground(self):
-        if self.player.sprite.on_ground:
+        if self.player.on_ground:
             self.player_on_ground = True
         else:
             self.player_on_ground = False
@@ -168,7 +146,7 @@ class Level:
 
 
     def death(self,kill_player):
-        player = self.player.sprite
+        player = self.player
         player_y = player.rect.centery
         #print(player.rect.y)
         if player_y>1081:
@@ -181,7 +159,7 @@ class Level:
 
         #self.scroll_x()
         #self.tiles.update(self.world_shift)
-        self.visible_sprites.custom_draw(self.player.sprite)
+        self.visible_sprites.custom_draw(self.player)
         #self.winds_up.update(self.world_shift)
         #self.winds_left.update(self.world_shift)
         #self.winds_left.draw(self.display_surface)
@@ -202,7 +180,7 @@ class Level:
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         #self.platforms_collisions()
-        self.player.draw(self.display_surface)
+        #self.player.draw(self.display_surface)
 
 class CameraGroup(pygame.sprite.Group):
 	def __init__(self):
