@@ -34,5 +34,5 @@ UNSOLVED KNOWN BUGs LIST:<br/>
 SOLVED KNOWN Bugs LIST:<br/>
 important:<br/>
 -there's colision bug between if player has big speed from wind to be checked if nope FIXED+<br/>
--Collision goes crazy if camera is scrolling <br/> FIXED
+-Collision goes crazy if camera is scrolling FIXED <br/> 
 -to fix bug if player holds two buttons right and left at same time. FIXED+ <br/>
