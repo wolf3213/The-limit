@@ -2,7 +2,6 @@ import pygame
 from tiles import Tile
 from tiles import Platform_
 from tiles import Wind_
-from tiles import Windleft_
 from settings import *
 from player import Player
 from support import import_csv_layout, import_cut_graphics
@@ -18,11 +17,12 @@ class Level:
         self.visible_sprites = CameraGroup()
         self.active_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
+        self.winds_sprites=pygame.sprite.Group()
 
         tiles_layout = import_csv_layout(level_data['terrain'])
         self.tiles = self.create_tile_group(tiles_layout,'terrain',[self.visible_sprites,self.collision_sprites])
         winds_laylout = import_csv_layout(level_data['winds'])
-        self.winds = self.create_tile_group(winds_laylout, 'winds', [self.visible_sprites, self.collision_sprites])
+        self.winds = self.create_tile_group(winds_laylout, 'winds', [self.visible_sprites,self.winds_sprites])
 
         # TO FIX
         # self.winds_up= pygame.sprite.Group()
@@ -47,9 +47,14 @@ class Level:
                         #terrain_tile_list = import_cut_graphics('graphics/stone.png')
                         #tile_surface = terrain_tile_list[int(val)]
                         sprite = Tile((x,y),tile_size, 'grey',groups)
-                    if type == 'winds':
-                        sprite = Tile((x, y), tile_size, 'white', groups)
+                    elif type == 'winds':
+                        if val == '0':
+                            sprite = Wind_((x, y),'right', groups)
+                        elif val == '1':
+                            sprite = Wind_((x, y),'up',groups)
                     sprite_group.add(sprite)
+
+
 
         return sprite_group
 
@@ -63,19 +68,16 @@ class Level:
                     #self.player.add(sprite)
 
 
-    # def winds_collisions(self):
-    #     player = self.player.sprite
-    #     for sprite in self.winds_up.sprites():
-    #         if sprite.rect.colliderect(player.rect):
-    #                 player.direction.y = -1.3 #ponieważ potrzebujesz zapasu 4 pixeli na doskoczenie do platformy
-    #                 #player.gravity=0
-    #                 #print(player.direction.y)
-    #         #else:
-    #             #player.gravity=0.9
-    #     for sprite in self.winds_left.sprites():
-    #         if sprite.rect.colliderect(player.rect):
-    #                 player.direction.x = -1
-    #                 player.direction.y = -0.3
+    def winds_collisions(self):
+        player = self.player
+        for sprite in self.winds_sprites:
+            if sprite.direction_wind=='up':
+                if sprite.rect.colliderect(player.rect):
+                        player.direction.y = -1.3 #ponieważ potrzebujesz zapasu 4 pixeli na doskoczenie do platformy
+            elif sprite.direction_wind=='right':
+                if sprite.rect.colliderect(player.rect):
+                        player.direction.x = -1
+                        player.direction.y = -0.3
 
     def horizontal_movement_collision(self):
         player = self.player
@@ -156,25 +158,15 @@ class Level:
 
 
     def run(self,joystick):
-
-        #self.scroll_x()
-        #self.tiles.update(self.world_shift)
         self.visible_sprites.custom_draw(self.player)
-        #self.winds_up.update(self.world_shift)
-        #self.winds_left.update(self.world_shift)
+
         #self.winds_left.draw(self.display_surface)
-        #self.platforms.update(self.world_shift)
+
         #self.platforms.draw(self.display_surface)
 
-
-
-        #player = self.player.sprite
-        #if (player.direction.y>9 or player.direction.y<-9 or player.direction.x>9 or player.direction.x<-9):
-            #print(player.direction.x)
-            #print(player.direction.y)
         self.player.update(joystick)
         self.get_player_on_ground()
-        ##self.winds_collisions()
+        self.winds_collisions()
 
 
         self.horizontal_movement_collision()

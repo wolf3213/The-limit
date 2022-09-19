@@ -5,8 +5,10 @@ from level import Level
 from sys import exit
 from player import Player
 from game_data import level_0
+clock = pygame.time.Clock()
 #init
 #kill player==0 if player alive kill player==1 if player is dying
+
 class Game():
     def __init__(self):
 #         super().__init__()
@@ -75,10 +77,11 @@ class Game():
                 game = Game()
                 game.run(death_count)
             pygame.display.update()
-            # print(death_count)
-            # print(self.clock.get_fps())
-            self.clock.tick(60)
+            #print(death_count)
 
+
+            self.clock.tick(60)
+            print(self.clock.get_fps())
 # def main(death_count,kill_player):
 #     pygame.init()
 #     #pad initalization
