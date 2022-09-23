@@ -67,10 +67,8 @@ class Player(pygame.sprite.Sprite):
                 self.jump()
             if axis_x > 0.4:
                 self.direction.x = 1
-                print("right")
             elif axis_x < -0.4:
                 self.direction.x = -1
-                print("left")
             ##############
             # keyboard
             elif keys[pygame.K_RIGHT]:
@@ -87,6 +85,12 @@ class Player(pygame.sprite.Sprite):
                 self.direction.x = 0
             if (keys[pygame.K_SPACE] and self.on_ground):
                 self.jump()
+
+            if keys[pygame.K_LSHIFT]:
+                self.speed=14
+            else:
+                self.speed=8
+
 
     def apply_gravity(self):
         self.direction.y += self.gravity
