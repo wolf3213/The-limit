@@ -25,6 +25,13 @@ class Player(pygame.sprite.Sprite):
         self.on_left = False
         self.on_right = False
 
+        #dash
+        self.can_dash = True
+        self.dash_start_time = 0
+        self.dash_duration_time= 500
+        self.dash_state=False
+        self.dash_cooldown = 10000
+        self.dash_speed=20
 
 
     def animate_player(self):
@@ -86,21 +93,40 @@ class Player(pygame.sprite.Sprite):
             if (keys[pygame.K_SPACE] and self.on_ground):
                 self.jump()
 
-            if keys[pygame.K_LSHIFT]:
-                self.speed=14
+            current_time = pygame.time.get_ticks()
+
+            if keys[pygame.K_LSHIFT] and self.can_dash:
+                self.dash_start_time = pygame.time.get_ticks()
+                self.dash_state= True
+                self.can_dash= False
+            if self.dash_state:
+                self.speed = self.dash_speed
+                if current_time-self.dash_start_time>=self.dash_duration_time:
+                    self.dash_state=False
             else:
                 self.speed=8
+
+    def cooldowns(self):
+        current_time = pygame.time.get_ticks()
+        if self.dash_state==False:
+            if current_time - self.dash_start_time >= self.dash_cooldown:
+                self.can_dash = True
+                print("cooldown_rested")
 
 
     def apply_gravity(self):
         self.direction.y += self.gravity
+        # if self.dash_state==True: #fix those lines
+        #     self.direction.y=-self.dash_speed
         self.rect.y += self.direction.y
+
 
 
     def jump(self):
         self.direction.y = self.jump_speed
 
     def update(self,joystick):
+        self.cooldowns()
         self.get_input(joystick)
         self.rect.x += self.direction.x * self.speed
         self.animate_player()
