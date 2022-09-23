@@ -3,7 +3,7 @@ Simple platform game
 ----------
 IN PROGRESS LIST:<br/>
 add winds, platforms so on<br/>
-
+add dash<br/>
 --------- <br/>
 <br/>
 ADDED LIST : <br/>
@@ -28,7 +28,7 @@ IDEA LIST<br/>
 add winds based on 6 sprites (6 circles going "up",pixel by pixel)<br/>
 -----------<br/>
 UNSOLVED KNOWN BUGs LIST:<br/>
-
+collision with wind and <br/>
 
 -----------
 SOLVED KNOWN Bugs LIST:<br/>
