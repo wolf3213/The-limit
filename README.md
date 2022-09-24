@@ -13,12 +13,11 @@ xbox controls <br/>
 add option to restart game DONE +<br/>
 add death count DONE +<br/>
 add death condition if fall DONE +<br/>
-add platforms DONE +<br/>
-add better collisions DONE+ (loot at SOLVED KNOWN ISSUES LIST)<br/>
 add camera following player in up DONE+ <br/>
 <br/>
 ----------<br/>
 TO DO LIST<br/>
+add better collisions sort of?+ (loot at (UN)SOLVED KNOWN ISSUES LIST)<br/>
 add menu screen <br/>
 add animations<br/>
 add better hitbox to player<br/>
@@ -26,10 +25,10 @@ add losing screen<br/>
 <br/>
 ---------<br/>
 IDEA LIST<br/>
-add winds based on 6 sprites (6 circles going "up",pixel by pixel)<br/>
+add winds based on 6 sprites gif (6 circles going "up",pixel by pixel)<br/>
 -----------<br/>
 UNSOLVED KNOWN BUGs LIST:<br/>
-collision with wind and <br/>
+collision with wind<br/>
 
 -----------
 SOLVED KNOWN Bugs LIST:<br/>
