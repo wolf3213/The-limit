@@ -30,13 +30,13 @@ add winds based on 6 sprites gif (6 circles going "up",pixel by pixel)<br/>
 UNSOLVED KNOWN BUGs LIST:<br/>
 collision with wind<br/>
 
------------
+-----------<br/>
 SOLVED KNOWN Bugs LIST:<br/>
 important:<br/>
 -there's colision bug between if player has big speed from wind to be checked if nope FIXED+<br/>
 -Collision goes crazy if camera is scrolling FIXED <br/> 
 -to fix bug if player holds two buttons right and left at same time. FIXED+ <br/>
--------------
+-------------<br/>
 HOW TO INSTALL <br/>
 make sure you have python3  and pygameinstalled, you can do that by using in the terminal (windows/linux) <br/>
 pip install python3 <br/>
