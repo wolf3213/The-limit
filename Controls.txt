@@ -1,0 +1,14 @@
+works with pad! (partialy) 
+-----------------------
+keyboard:
+a/d or left/right arrow - walk left/right
+space -jump
+R -reset the game
+ESCAPE -leaves the game
+left shift- dash (in progress)
+--------------------
+XBOX PAD
+left joystick control movement
+"A"-JUMP 
+START-leaves the game
+DASH NOT SUPPORTED
