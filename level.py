@@ -5,7 +5,7 @@ from tiles import Wind_
 from settings import *
 from player import Player
 from support import import_csv_layout, import_cut_graphics
-
+from debug import debug
 
 class Level:
     def __init__(self,level_data,surface):
@@ -171,6 +171,7 @@ class Level:
 
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
+        debug(self.player.speed)
         #self.platforms_collisions()
         #self.player.draw(self.display_surface)
 
