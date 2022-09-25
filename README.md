@@ -8,8 +8,8 @@ add dash<br/>
 --------- <br/>
 <br/>
 ADDED LIST : <br/>
-Converting to tiles editor.  <br/>
-xbox controls <br/>
+Converting to tiles editor. DONE+  <br/>
+basic xbox controls DONE+ <br/>
 add option to restart game DONE +<br/>
 add death count DONE +<br/>
 add death condition if fall DONE +<br/>
