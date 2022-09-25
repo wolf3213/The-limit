@@ -29,7 +29,7 @@ add winds based on 6 sprites gif (6 circles going "up",pixel by pixel)<br/>
 -----------<br/>
 UNSOLVED KNOWN BUGs LIST:<br/>
 collision with wind<br/>
-
+jump state mixing with dash state<br/>
 -----------<br/>
 SOLVED KNOWN Bugs LIST:<br/>
 important:<br/>
