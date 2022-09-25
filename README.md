@@ -23,6 +23,7 @@ add animations<br/>
 add better hitbox to player<br/>
 add losing screen<br/>
 change player hitbox to smaller<br/>
+change so state govern the code <br/>
 <br/>
 ---------<br/>
 IDEA LIST<br/>
