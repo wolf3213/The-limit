@@ -96,6 +96,8 @@ class Level:
     def vertical_movement_collision(self):
         player = self.player
         player.apply_gravity()
+        if player.on_ground==True and player.dash_state==True:
+            player.on_ground = False
         if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
             player.on_ground = False
         if player.on_ceiling and player.direction.y > 0.1:
@@ -107,7 +109,7 @@ class Level:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
                     player.on_ground = True
-                    #print("collision with ground")
+
                 elif abs(player.rect.bottom - sprite.rect.top)<self.collison_tollorence:
                     player.rect.bottom = sprite.rect.top
                     player.direction.y = 0
@@ -120,9 +122,6 @@ class Level:
                     player.rect.top = sprite.rect.bottom
                     player.direction.y = 0
                     player.on_ceiling = True
-                    #print("collision with celling")
-                #elif player.direction.y == 0:
-                    #break
 
     #TO FIX
     # def platforms_collisions(self):
@@ -159,21 +158,17 @@ class Level:
 
     def run(self,joystick):
         self.visible_sprites.custom_draw(self.player)
-
-        #self.winds_left.draw(self.display_surface)
-
-        #self.platforms.draw(self.display_surface)
-
         self.player.update(joystick)
         self.get_player_on_ground()
         self.winds_collisions()
 
-
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
-        debug(self.player.speed)
+        debug(self.player.on_ground)
+        debug(self.player.dash_state,y=25)
+        debug(self.player.can_dash, y=40)
         #self.platforms_collisions()
-        #self.player.draw(self.display_surface)
+
 
 class CameraGroup(pygame.sprite.Group):
 	def __init__(self):

@@ -24,19 +24,19 @@ class Player(pygame.sprite.Sprite):
 
         # player status
         self.status = 'idle'
+
         self.facing_right = True
+        self.facing_left = False
         self.on_ground = False
         self.on_ceiling = False
-        self.on_left = False
-        self.on_right = False
 
         #dash
         self.can_dash = True
         self.dash_start_time = 0
-        self.dash_duration_time= 250
+        self.dash_duration_time= 150
         self.dash_state=False
         self.dash_cooldown = 1000
-        self.dash_speed=12
+        self.dash_speed=10
 
 
     def animate_player(self):
@@ -60,16 +60,26 @@ class Player(pygame.sprite.Sprite):
                 self.direction.x = 1
                 self.speed = self.dash_speed
                 self.gravity=0
-                print('true')
-            if keys[pygame.K_LEFT] and not keys[pygame.K_UP]:
+            elif keys[pygame.K_LEFT] and not keys[pygame.K_UP]:
                 self.direction.x = -1
                 self.speed = self.dash_speed
                 self.gravity = 0
-                print('true')
-            if current_time - self.dash_start_time >= self.dash_duration_time:  # if time of dash ends, end dash
-                self.dash_state = False
+            elif self.facing_right == True:
+                self.direction.x = 1
+                self.speed = self.dash_speed
+                self.gravity=0
+            elif self.facing_left== True:
+                self.direction.x = -1
+                self.speed = self.dash_speed
+                self.gravity = 0
+        if current_time - self.dash_start_time >= self.dash_duration_time:  # if time of dash ends, end dash
+            self.gravity=self.default_gravity
+            self.dash_state = False
+            if self.on_ground:
                 self.speed = self.default_speed
-                self.gravity=self.default_gravity
+                self.can_dash=True
+
+
 
 
     def get_input(self,joystick):
@@ -85,8 +95,9 @@ class Player(pygame.sprite.Sprite):
                 self.direction.x = 1
             elif keys[pygame.K_a]:
                 self.direction.x = -1
-            else:
+            elif self.dash_state==False:
                 self.direction.x = 0
+
             if (keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]):
                 self.direction.x = 0
             if (keys[pygame.K_SPACE] and self.on_ground):
@@ -124,7 +135,7 @@ class Player(pygame.sprite.Sprite):
                 self.direction.x = 0
             if (keys[pygame.K_SPACE] and self.on_ground):
                 self.jump()
-            dash(self,keys)
+            self.dash(keys)
 
 
 
@@ -138,18 +149,17 @@ class Player(pygame.sprite.Sprite):
 
     def apply_gravity(self):
         self.direction.y += self.gravity
-        # if self.dash_state==True: #fix those lines
-        #     self.direction.y=-self.dash_speed
         self.rect.y += self.direction.y
-
 
 
     def jump(self):
         self.direction.y = self.jump_speed
 
-    def update(self,joystick):
-        self.cooldowns()
-        self.get_input(joystick)
+    def movement (self):
         self.rect.x += self.direction.x * self.speed
+    def update(self,joystick):
+        # self.cooldowns()
+        self.get_input(joystick)
+        self.movement()
         self.animate_player()
 
