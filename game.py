@@ -14,7 +14,10 @@ class Game():
 #         super().__init__()
         self.joystick=joystick
         #screen
-        self.screen=pygame.display.set_mode((1920,1080),pygame.FULLSCREEN)
+        infoObject = pygame.display.Info()
+        screen_width=infoObject.current_w
+        screen_height=infoObject.current_h
+        self.screen=pygame.display.set_mode((screen_height,screen_width),pygame.FULLSCREEN)
         self.clock=pygame.time.Clock()
         #level
         self.level=Level(level_0,self.screen)
@@ -42,9 +45,9 @@ class Game():
                             exit()
                         if event.key == pygame.K_r:
                                 death_count+=1
-                                game = Game(self.joystick)
-                                self.running = False # i am not sure if that's needed
-                                game.run(death_count)
+                                self.level = Level(level_0, self.screen)
+                                self.run(death_count)
+
                     if pygame.joystick.get_count() > 0:  # if theres a pad
                         button_exit = self.joystick.get_button(7)
                         if button_exit > 0:
@@ -61,10 +64,9 @@ class Game():
             kill_player=self.level.death(0)
             #print(kill_player)
             if kill_player==1:
-                death_count +=1
-                self.running = False # i am not sure if that's needed
-                game = Game(self.joystick)
-                game.run(death_count)
+                death_count += 1
+                self.level = Level(level_0, self.screen)
+                self.run(death_count)
             pygame.display.update()
             #print(death_count)
 
