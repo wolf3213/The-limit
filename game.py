@@ -30,8 +30,11 @@ class Game():
         self.running=True
 
     def run(self,death_count):
+        quit_game = False
+        game_over = False
+
         self.text_name = self.def_font.render("Deathcount " + str(death_count), True, "red")
-        while self.running:
+        while not quit_game and not game_over:
 
             for event in pygame.event.get(): #q
                     if event.type == pygame.QUIT:
@@ -40,21 +43,20 @@ class Game():
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_ESCAPE:
                             print("escape pressed")
+                            quit_game = True
                             pygame.quit()
-                            self.running = False
                             exit()
                         if event.key == pygame.K_r:
-                                death_count+=1
-                                self.level = Level(level_0, self.screen)
-                                self.run(death_count)
+                                game_over = True
+                    if joystick: #check if joystick package instalized
+                        if pygame.joystick.get_count() > 0:  # if theres a pad
+                            button_exit = self.joystick.get_button(7)
+                            if button_exit > 0:
+                                print("escape pressed on pad")
+                                quit_game = True
+                                pygame.quit()
+                                exit()
 
-                    if pygame.joystick.get_count() > 0:  # if theres a pad
-                        button_exit = self.joystick.get_button(7)
-                        if button_exit > 0:
-                            print("escape pressed on pad")
-                            pygame.quit()
-                            self.running = False
-                            exit()
 
             self.screen.blit(self.sky_surface,(0,0))
             self.level.run(self.joystick)
@@ -64,7 +66,7 @@ class Game():
             kill_player=self.level.death(0)
             #print(kill_player)
             if kill_player==1:
-                death_count += 1
+
                 self.level = Level(level_0, self.screen)
                 self.run(death_count)
             pygame.display.update()
@@ -73,7 +75,7 @@ class Game():
 
             self.clock.tick(60)
             #print(self.clock.get_fps())
-
+        return quit_game
 
 if __name__ == "__main__":
     pygame.init()
@@ -88,6 +90,9 @@ if __name__ == "__main__":
     else:
         joystick = False  # look at get_input in player class
         print('joystick not initaliazed')
-    game = Game(joystick)
-    game.run(death_count=0)
-    # main(death_count=0,kill_player=0)
+    quit_game=False
+    death_count = 0
+    while not quit_game:
+        game = Game(joystick)
+        game.run(death_count)
+        death_count += 1
